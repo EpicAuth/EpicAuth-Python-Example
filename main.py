@@ -17,7 +17,7 @@ import platform
 import os
 import hashlib
 from time import sleep
-from datetime import datetime
+from datetime import datetime, UTC
 
 # import json as jsond
 # ^^ only for auto login/json writing/reading
@@ -28,11 +28,12 @@ def clear():
     if platform.system() == 'Windows':
         os.system('cls & title Python Example')  # clear console, change title
     elif platform.system() == 'Linux':
-        os.system('clear')  # clear console
-        sys.stdout.write("\x1b]0;Python Example\x07")  # change title
+        os.system('clear')  # Clear the terminal
+        sys.stdout.write("\033]0;Python Example\007")  # Set terminal title
+        sys.stdout.flush() 
     elif platform.system() == 'Darwin':
-        os.system("clear && printf '\e[3J'")  # clear console
-        os.system('''echo - n - e "\033]0;Python Example\007"''')  # change title
+        os.system("clear && printf '\033[3J'")  # Clear terminal and scrollback
+        os.system('echo -n -e "\033]0;Python Example\007"')  # Set terminal title
 
 print("Initializing")
 
@@ -46,13 +47,11 @@ def getchecksum():
 
 
 keyauthapp = api(
-    name = "",
-    ownerid = "",
-    secret = "",
-    version = "1.0",
+    name = "", # App name 
+    ownerid = "", # Account ID
+    version = "", # Application version. Used for automatic downloads see video here https://www.youtube.com/watch?v=kW195PLCBKs
     hash_to_check = getchecksum()
 )
-
 
 def answer():
     try:
@@ -65,7 +64,8 @@ def answer():
         if ans == "1":
             user = input('Provide username: ')
             password = input('Provide password: ')
-            keyauthapp.login(user, password)
+            code = input('Enter 2fa code: (not using 2fa? Just press enter)')
+            keyauthapp.login(user, password, code)
         elif ans == "2":
             user = input('Provide username: ')
             password = input('Provide password: ')
@@ -77,7 +77,8 @@ def answer():
             keyauthapp.upgrade(user, license)
         elif ans == "4":
             key = input('Enter your license: ')
-            keyauthapp.license(key)
+            code = input('Enter 2fa code: (not using 2fa? Just press enter)')
+            keyauthapp.license(key, code)
         else:
             print("\nInvalid option")
             sleep(1)
@@ -166,26 +167,47 @@ except Exception as e: #Error stuff
     print(e)
     os._exit(1)'''
 
+keyauthapp.fetchStats()
+# Display Application Data
+print("\nApplication data: ")
+print("App Version: " + keyauthapp.app_data.app_ver)
+print("Customer Panel Link: " + keyauthapp.app_data.customer_panel)
+print("Number of Keys: " + keyauthapp.app_data.numKeys)
+print("Number of Users: " + keyauthapp.app_data.numUsers)
+print("Online Users: " + keyauthapp.app_data.onlineUsers)
 
-from datetime import datetime, timezone
-from time import sleep
-
+# Display User Data
 print("\nUser data: ")
 print("Username: " + keyauthapp.user_data.username)
 print("IP address: " + keyauthapp.user_data.ip)
 print("Hardware-Id: " + keyauthapp.user_data.hwid)
 
-subs = keyauthapp.user_data.subscriptions
+subs = keyauthapp.user_data.subscriptions  # Get all Subscription names, expiry, and timeleft
 for i in range(len(subs)):
-    sub = subs[i]["subscription"]
-    expiry = datetime.fromtimestamp(int(subs[i]["expiry"]), timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
-    timeleft = subs[i]["timeleft"]
+    sub = subs[i]["subscription"]  # Subscription from every Sub
+    expiry = datetime.fromtimestamp(int(subs[i]["expiry"]), UTC).strftime(
+        '%Y-%m-%d %H:%M:%S')  # Expiry date from every Sub
+    timeleft = subs[i]["timeleft"]  # Timeleft from every Sub
+
     print(f"[{i + 1} / {len(subs)}] | Subscription: {sub} - Expiry: {expiry} - Timeleft: {timeleft}")
 
-print("Created at: " + datetime.fromtimestamp(int(keyauthapp.user_data.createdate), timezone.utc).strftime('%Y-%m-%d %H:%M:%S'))
-print("Last login at: " + datetime.fromtimestamp(int(keyauthapp.user_data.lastlogin), timezone.utc).strftime('%Y-%m-%d %H:%M:%S'))
-print("Expires at: " + datetime.fromtimestamp(int(keyauthapp.user_data.expires), timezone.utc).strftime('%Y-%m-%d %H:%M:%S'))
+print("Created at: " + datetime.fromtimestamp(int(keyauthapp.user_data.createdate), UTC).strftime('%Y-%m-%d %H:%M:%S'))
+print("Last login at: " + datetime.fromtimestamp(int(keyauthapp.user_data.lastlogin), UTC).strftime('%Y-%m-%d %H:%M:%S'))
+print("Expires at: " + datetime.fromtimestamp(int(keyauthapp.user_data.expires), UTC).strftime('%Y-%m-%d %H:%M:%S'))
+
+# Two Factor Authentication
+print("\nTwo Factor Authentication:")
+print("1. Enable 2FA")
+print("2. Disable 2FA")
+
+tfaans = input("Select Option: ")
+if tfaans == "1":
+    keyauthapp.enable2fa()  # You only need to call this once as it's called in the API file. 
+elif tfaans == "2":
+    keyauthapp.disable2fa()  # You only need to call this once as it's called in the API file, and should ideally only need to be called once anyways. 
+else:
+    print("\nInvalid Option")
+
 print("\nExiting in five seconds..")
 sleep(5)
-
 os._exit(1)

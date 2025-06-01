@@ -1,9 +1,10 @@
-# KeyAuth-Python-Example
-KeyAuth Python example for the https://keyauth.site authentication system.
+# KeyAuth-Python-Example : Please star 🌟
+
+KeyAuth Python example SDK for https://keyauth.site license key API auth.
 
 ## **Bugs**
 
-If the default example not added to your software isn't functioning how it should, please report a bug here https://keyauth.site/app/?page=forms
+If you are using our example with no significant changes, and you are having problems, please Report Bug here https://keyauth.site/app/?page=forms
 
 However, we do **NOT** provide support for adding KeyAuth to your project. If you can't figure this out you should use Google or YouTube to learn more about the programming language you want to sell a program in.
 
@@ -29,6 +30,9 @@ Thank you for your compliance, we work hard on the development of KeyAuth and do
 
 KeyAuth is an Open source authentication system with cloud hosting plans as well. Client SDKs available for [C#](https://github.com/KeyAuth/KeyAuth-CSHARP-Example), [C++](https://github.com/KeyAuth/KeyAuth-CPP-Example), [Python](https://github.com/KeyAuth/KeyAuth-Python-Example), [Java](https://github.com/KeyAuth-Archive/KeyAuth-JAVA-api), [JavaScript](https://github.com/mazkdevf/KeyAuth-JS-Example), [VB.NET](https://github.com/KeyAuth/KeyAuth-VB-Example), [PHP](https://github.com/KeyAuth/KeyAuth-PHP-Example), [Rust](https://github.com/KeyAuth/KeyAuth-Rust-Example), [Go](https://github.com/mazkdevf/KeyAuth-Go-Example), [Lua](https://github.com/mazkdevf/KeyAuth-Lua-Examples), [Ruby](https://github.com/mazkdevf/KeyAuth-Ruby-Example), and [Perl](https://github.com/mazkdevf/KeyAuth-Perl-Example). KeyAuth has several unique features such as memory streaming, webhook function where you can send requests to API without leaking the API, discord webhook notifications, ban the user securely through the application at your discretion. Feel free to join https://t.me/keyauth if you have questions or suggestions.
 
+> [!TIP]
+> https://vaultcord.com FREE Discord bot to Backup server, members, channels, messages & more. Custom verify page, block alt accounts, VPNs & more.
+
 ## **Customer connection issues?**
 
 This is common amongst all authentication systems. Program obfuscation causes false positives in virus scanners, and with the scale of KeyAuth this is perceived as a malicious domain. So, `keyauth.com` and `keyauth.site` have been blocked by many internet providers. for dashbord, reseller panel, customer panel, use `keyauth.site`
@@ -40,7 +44,7 @@ For API, `keyauth.site` will not work because I purposefully blocked it on there
 You can either use Pyinstaller or Nuitka.
 
 Links:
-- Nutika: https://nuitka.net/
+- Nuitka: https://nuitka.net/
 - Pyinstaller: https://pyinstaller.org/
 
 Pyinstaller:
@@ -57,10 +61,10 @@ It'll provide you with the code which you should replace with in the `main.py` f
 
 ```PY
 keyauthapp = api(
-    name = "example", #App name (Manage Applications --> Application name)
-    ownerid = "JjPMBVlIOd", #Owner ID (Account-Settings --> OwnerID)
-    secret = "db40d586f4b189e04e5c18c3c94b7e72221be3f6551995adc05236948d1762bc", #App secret(Manage Applications --> App credentials code)
-    version = "1.0",
+    name = "", #App name (Manage Applications --> Application name)
+    ownerid = "", #Owner ID (Account-Settings --> OwnerID)
+    secret = "", #App secret(Manage Applications --> App credentials code)
+    version = "",
     hash_to_check = getchecksum()
 )
 ```
@@ -122,7 +126,7 @@ keyauthapp.register(user, password, license)
 
 Used so the user can add extra time to their account by claiming new key.
 
-> **Warning**
+> [!Warning]
 > No password is needed to upgrade account. So, unlike login, register, and license functions - you should **not** log user in after successful upgrade.
 
 ```py
@@ -226,6 +230,22 @@ Function only works after login.
 keyauthapp.ban()
 ```
 
+## **Enable Two Factor Authentication (2fa)**
+
+Enable two factor authentication (2fa) on a client account.
+
+```py
+keyauthapp.enable2fa()
+```
+
+## **Disable Two Factor Authentication (2fa)**
+
+Disable two factor authentication (2fa) on a client account.
+
+```py
+keyauthapp.disable2fa()
+```
+
 ## **Logout session**
 
 Logout the users session and close the application. 
@@ -239,8 +259,8 @@ keyauthapp.logout()
 
 Tutorial video https://www.youtube.com/watch?v=ENRaNPPYJbc
 
-> **Note**
-> Read documentation for KeyAuth webhooks here https://docs.keyauth.site/website/dashboard/webhooks
+> [!NOTE]
+> Read documentation for KeyAuth webhooks here https://keyauth.readme.io/reference/webhooks-1
 
 Send HTTP requests to URLs securely without leaking the URL in your application. You should definitely use if you want to send requests to SellerAPI from your application, otherwise if you don't use you'll be leaking your seller key to everyone. And then someone can mess up your application.
 
@@ -263,7 +283,7 @@ data = keyauthapp.webhook("7kR0UedlVI", "", "{\"content\": \"webhook message her
 
 ## **Download file**
 
-> **Note**
+> [!NOTE]
 > Read documentation for KeyAuth files here https://docs.keyauth.site/website/dashboard/files
 
 Keep files secure by providing KeyAuth your file download link on the KeyAuth dashboard. Make sure this is a direct download link (as soon as you go to the link, it starts downloading without you clicking anything). The KeyAuth download function provides the bytes, and then you get to decide what to do with those. This example shows how to write it to a file named `text.txt` in the same folder as the program, though you could execute with RunPE or whatever you want.
@@ -301,3 +321,5 @@ Example on how to send chat message.
 * Send chat message
 keyauthapp.chatSend("MESSAGE", "CHANNEL")
 ```
+
+Looking for a Discord bot made by the KeyAuth & RestoreCord founder that you can use to backup your Discord members, server settings, and messages? Go to https://vaultcord.com
