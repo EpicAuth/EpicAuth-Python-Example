@@ -65,7 +65,7 @@ class api:
 
         response = self.__do_request(post_data)
 
-        if response == "KeyAuth_Invalid":
+        if response == "EpicAuth_Invalid":
             print("The application doesn't exist")
             time.sleep(3)
             os._exit(1)
@@ -244,7 +244,7 @@ class api:
         if json["success"]:
             return json["response"]
         else:
-            print(f"NOTE: This is commonly misunderstood. This is for user variables, not the normal variables.\nUse keyauthapp.var(\"{var_name}\") for normal variables");
+            print(f"NOTE: This is commonly misunderstood. This is for user variables, not the normal variables.\nUse EpicAuthapp.var(\"{var_name}\") for normal variables");
             print(json["message"])
             time.sleep(3)
             os._exit(1)

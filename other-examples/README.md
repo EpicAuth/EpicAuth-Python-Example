@@ -1,15 +1,15 @@
 # Other-Examples
-KeyAuth Python Examples
+EpicAuth Python Examples
 
 **merged_example.py**
 
-Yes title says everything. This file contains the `keyauth.py` and `main.py` from https://github.com/KeyAuth/KeyAuth-Python-Example
+Yes title says everything. This file contains the `EpicAuth.py` and `main.py` from https://github.com/EpicAuth/EpicAuth-Python-Example
 
 A few people did not know how to merge the files, so I made an example.
 
 **method1.py**
 
-This file shows you how to add your program to keyauth example.
+This file shows you how to add your program to EpicAuth example.
 
 All you have to do is copy and paste your code below the example, you can check it in the `method1.py` file.
 

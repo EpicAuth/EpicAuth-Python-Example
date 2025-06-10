@@ -93,7 +93,7 @@ class api:
 
         response = self.__do_request(post_data)
 
-        if response == "KeyAuth_Invalid":
+        if response == "EpicAuth_Invalid":
             print("The application doesn't exist")
             os._exit(1)
 
@@ -459,7 +459,7 @@ class api:
 
         if json["success"]:
             if len(json["users"]) == 0:
-                return None  # THIS IS ISSUE ON KEYAUTH SERVER SIDE 6.8.2022, so it will return none if it is not an array.
+                return None  # THIS IS ISSUE ON EpicAuth SERVER SIDE 6.8.2022, so it will return none if it is not an array.
             else:
                 return json["users"]
         else:
@@ -650,7 +650,7 @@ def getchecksum():
     return digest
 
 
-keyauthapp = api(
+EpicAuthapp = api(
     name = "", #App name (Manage Applications --> Application name)
     ownerid = "", #Owner ID (Account-Settings --> OwnerID)
     secret = "", #App secret(Manage Applications --> App credentials code)
@@ -660,14 +660,14 @@ keyauthapp = api(
 
 print(f"""
 App data:
-Number of users: {keyauthapp.app_data.numUsers}
-Number of online users: {keyauthapp.app_data.onlineUsers}
-Number of keys: {keyauthapp.app_data.numKeys}
-Application Version: {keyauthapp.app_data.app_ver}
-Customer panel link: {keyauthapp.app_data.customer_panel}
+Number of users: {EpicAuthapp.app_data.numUsers}
+Number of online users: {EpicAuthapp.app_data.onlineUsers}
+Number of keys: {EpicAuthapp.app_data.numKeys}
+Application Version: {EpicAuthapp.app_data.app_ver}
+Customer panel link: {EpicAuthapp.app_data.customer_panel}
 """)
-print(f"Current Session Validation Status: {keyauthapp.check()}")
-print(f"Blacklisted? : {keyauthapp.checkblacklist()}")  # check if blacklisted, you can edit this and make it exit the program if blacklisted
+print(f"Current Session Validation Status: {EpicAuthapp.check()}")
+print(f"Blacklisted? : {EpicAuthapp.checkblacklist()}")  # check if blacklisted, you can edit this and make it exit the program if blacklisted
 
 
 def answer():
@@ -682,19 +682,19 @@ def answer():
         if ans == "1":
             user = input('Provide username: ')
             password = input('Provide password: ')
-            keyauthapp.login(user, password)
+            EpicAuthapp.login(user, password)
         elif ans == "2":
             user = input('Provide username: ')
             password = input('Provide password: ')
             license = input('Provide License: ')
-            keyauthapp.register(user, password, license)
+            EpicAuthapp.register(user, password, license)
         elif ans == "3":
             user = input('Provide username: ')
             license = input('Provide License: ')
-            keyauthapp.upgrade(user, license)
+            EpicAuthapp.upgrade(user, license)
         elif ans == "4":
             key = input('Enter your license: ')
-            keyauthapp.license(key)
+            EpicAuthapp.license(key)
         else:
             print("\nNot Valid Option")
             time.sleep(1)
@@ -709,44 +709,44 @@ answer()
 # region Extra Functions
 
 # * Download Files form the server to your computer using the download function in the api class
-# bytes = keyauthapp.file("FILEID")
+# bytes = EpicAuthapp.file("FILEID")
 # f = open("example.exe", "wb")
 # f.write(bytes)
 # f.close()
 
 
 # * Set up user variable
-# keyauthapp.setvar("varName", "varValue")
+# EpicAuthapp.setvar("varName", "varValue")
 
 # * Get user variable and print it
-# data = keyauthapp.getvar("varName")
+# data = EpicAuthapp.getvar("varName")
 # print(data)
 
 # * Get normal variable and print it
-# data = keyauthapp.var("varName")
+# data = EpicAuthapp.var("varName")
 # print(data)
 
 # * Log message to the server and then to your webhook what is set on app settings
-# keyauthapp.log("Message")
+# EpicAuthapp.log("Message")
 
 # * Get if the user pc have been blacklisted
-# print(f"Blacklisted? : {keyauthapp.checkblacklist()}")
+# print(f"Blacklisted? : {EpicAuthapp.checkblacklist()}")
 
 # * See if the current session is validated
-# print(f"Session Validated?: {keyauthapp.check()}")
+# print(f"Session Validated?: {EpicAuthapp.check()}")
 
 
 # * example to send normal request with no POST data
-# data = keyauthapp.webhook("WebhookID", "?type=resetuser&user=username")
+# data = EpicAuthapp.webhook("WebhookID", "?type=resetuser&user=username")
 
 # * example to send form data
-# data = keyauthapp.webhook("WebhookID", "", "type=init&name=test&ownerid=j9Gj0FTemM", "application/x-www-form-urlencoded")
+# data = EpicAuthapp.webhook("WebhookID", "", "type=init&name=test&ownerid=j9Gj0FTemM", "application/x-www-form-urlencoded")
 
 # * example to send JSON
-# data = keyauthapp.webhook("WebhookID", "", "{\"content\": \"webhook message here\",\"embeds\": null}", "application/json")
+# data = EpicAuthapp.webhook("WebhookID", "", "{\"content\": \"webhook message here\",\"embeds\": null}", "application/json")
 
 # * Get chat messages
-# messages = keyauthapp.chatGet("CHANNEL")
+# messages = EpicAuthapp.chatGet("CHANNEL")
 
 # Messages = ""
 # for i in range(len(messages)):
@@ -755,10 +755,10 @@ answer()
 # print("\n\n" + Messages)
 
 # * Send chat message
-# keyauthapp.chatSend("MESSAGE", "CHANNEL")
+# EpicAuthapp.chatSend("MESSAGE", "CHANNEL")
 
 # * Add Application Information to Title
-# os.system(f"cls & title KeyAuth Python Example - Total Users: {keyauthapp.app_data.numUsers} - Online Users: {keyauthapp.app_data.onlineUsers} - Total Keys: {keyauthapp.app_data.numKeys}")
+# os.system(f"cls & title EpicAuth Python Example - Total Users: {EpicAuthapp.app_data.numUsers} - Online Users: {EpicAuthapp.app_data.onlineUsers} - Total Keys: {EpicAuthapp.app_data.numKeys}")
 
 # * Auto-Login Example (THIS IS JUST AN EXAMPLE --> YOU WILL HAVE TO EDIT THE CODE PROBABLY)
 # 1. Checking and Reading JSON
@@ -776,7 +776,7 @@ answer()
             if ans=="1": 
                 user = input('Provide username: ')
                 password = input('Provide password: ')
-                keyauthapp.login(user,password)
+                EpicAuthapp.login(user,password)
                 authfile = jsond.load(open("auth.json"))
                 authfile["authusername"] = user
                 authfile["authpassword"] = password
@@ -785,7 +785,7 @@ answer()
                 user = input('Provide username: ')
                 password = input('Provide password: ')
                 license = input('Provide License: ')
-                keyauthapp.register(user,password,license) 
+                EpicAuthapp.register(user,password,license) 
                 authfile = jsond.load(open("auth.json"))
                 authfile["authusername"] = user
                 authfile["authpassword"] = password
@@ -799,7 +799,7 @@ answer()
                     authfile = jsond.load(f)
                     authuser = authfile.get('authusername')
                     authpass = authfile.get('authpassword')
-                    keyauthapp.login(authuser,authpass)
+                    EpicAuthapp.login(authuser,authpass)
             except Exception as e: #Error stuff
                 print(e)
     else: #Creating auth file bc its missing
@@ -818,7 +818,7 @@ answer()
             if ans=="1": 
                 user = input('Provide username: ')
                 password = input('Provide password: ')
-                keyauthapp.login(user,password)
+                EpicAuthapp.login(user,password)
                 authfile = jsond.load(open("auth.json"))
                 authfile["authusername"] = user
                 authfile["authpassword"] = password
@@ -827,7 +827,7 @@ answer()
                 user = input('Provide username: ')
                 password = input('Provide password: ')
                 license = input('Provide License: ')
-                keyauthapp.register(user,password,license)
+                EpicAuthapp.register(user,password,license)
                 authfile = jsond.load(open("auth.json"))
                 authfile["authusername"] = user
                 authfile["authpassword"] = password
@@ -846,12 +846,12 @@ except Exception as e: #Error stuff
 
 
 print("\nUser data: ")
-print("Username: " + keyauthapp.user_data.username)
-print("IP address: " + keyauthapp.user_data.ip)
-print("Hardware-Id: " + keyauthapp.user_data.hwid)
-# print("Subcription: " + keyauthapp.user_data.subscription) ## Print Subscription "ONE" name
+print("Username: " + EpicAuthapp.user_data.username)
+print("IP address: " + EpicAuthapp.user_data.ip)
+print("Hardware-Id: " + EpicAuthapp.user_data.hwid)
+# print("Subcription: " + EpicAuthapp.user_data.subscription) ## Print Subscription "ONE" name
 
-subs = keyauthapp.user_data.subscriptions  # Get all Subscription names, expiry, and timeleft
+subs = EpicAuthapp.user_data.subscriptions  # Get all Subscription names, expiry, and timeleft
 for i in range(len(subs)):
     sub = subs[i]["subscription"]  # Subscription from every Sub
     expiry = datetime.utcfromtimestamp(int(subs[i]["expiry"])).strftime(
@@ -860,7 +860,7 @@ for i in range(len(subs)):
 
     print(f"[{i + 1} / {len(subs)}] | Subscription: {sub} - Expiry: {expiry} - Timeleft: {timeleft}")
 
-onlineUsers = keyauthapp.fetchOnline()
+onlineUsers = EpicAuthapp.fetchOnline()
 OU = ""  # KEEP THIS EMPTY FOR NOW, THIS WILL BE USED TO CREATE ONLINE USER STRING.
 if onlineUsers is None:
     OU = "No online users"
@@ -870,7 +870,7 @@ else:
 
 print("\n" + OU + "\n")
 
-print("Created at: " + datetime.utcfromtimestamp(int(keyauthapp.user_data.createdate)).strftime('%Y-%m-%d %H:%M:%S'))
-print("Last login at: " + datetime.utcfromtimestamp(int(keyauthapp.user_data.lastlogin)).strftime('%Y-%m-%d %H:%M:%S'))
-print("Expires at: " + datetime.utcfromtimestamp(int(keyauthapp.user_data.expires)).strftime('%Y-%m-%d %H:%M:%S'))
-print(f"Current Session Validation Status: {keyauthapp.check()}")
+print("Created at: " + datetime.utcfromtimestamp(int(EpicAuthapp.user_data.createdate)).strftime('%Y-%m-%d %H:%M:%S'))
+print("Last login at: " + datetime.utcfromtimestamp(int(EpicAuthapp.user_data.lastlogin)).strftime('%Y-%m-%d %H:%M:%S'))
+print("Expires at: " + datetime.utcfromtimestamp(int(EpicAuthapp.user_data.expires)).strftime('%Y-%m-%d %H:%M:%S'))
+print(f"Current Session Validation Status: {EpicAuthapp.check()}")
