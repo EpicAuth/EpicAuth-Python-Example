@@ -34,7 +34,7 @@ class api:
 
     def __init__(self, name, ownerid, version, hash_to_check):
         if len(ownerid) != 10:
-            print("Visit https://keyauth.site/app/, copy Pthon code, and replace code in main.py with that")
+            print("Visit https://EpicAuth.cc/app/, copy Pthon code, and replace code in main.py with that")
             time.sleep(3)
             os._exit(1)
     
@@ -593,7 +593,7 @@ class api:
     def __do_request(self, post_data):
         try:
             response = requests.post(
-                "https://keyauth.site/api/1.3/", data=post_data, timeout=10
+                "https://EpicAuth.cc/api/1.3/", data=post_data, timeout=10
             )
 
             if post_data["type"] == "log" or post_data["type"] == "file" or post_data["type"] == "2faenable" or post_data["type"] == "2fadisable":

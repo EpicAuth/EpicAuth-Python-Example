@@ -508,7 +508,7 @@ class api:
     def __do_request(self, post_data):
         try:
             rq_out = s.post(
-                "https://keyauth.site/api/1.0/", data=post_data, timeout=30
+                "https://EpicAuth.cc/api/1.0/", data=post_data, timeout=30
             )
             return rq_out.text
         except requests.exceptions.Timeout:

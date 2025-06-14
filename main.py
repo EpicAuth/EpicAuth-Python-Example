@@ -1,7 +1,7 @@
 '''
-keyauth.site Python Example
+EpicAuth.cc Python Example
 
-Go to https://keyauth.site/app/ and click the Python tab. Copy that code and replace the existing EpicAuthapp instance in this file.
+Go to https://EpicAuth.cc/app/ and click the Python tab. Copy that code and replace the existing EpicAuthapp instance in this file.
 
 If you get an error saying it can't find module EpicAuth, try following this https://github.com/EpicAuth/EpicAuth-Python-Example#how-to-compile
 
