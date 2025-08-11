@@ -111,7 +111,18 @@ class api:
         response = self.__do_request(post_data)
 
         json = jsond.loads(response)
-
+        
+        if json["message"] == "invalidver":
+        if json["download"] != "":
+            print("New Version Available")
+            download_link = json["download"]
+            os.system(f"start {download_link}")
+            time.sleep(3)
+            os._exit(1)
+        else:
+            print("Invalid Version, Contact owner to add download link to latest app version")
+            time.sleep(3)
+            os._exit(1)
         if json["success"]:
             print(json["message"])
             self.__load_user_data(json["info"])
@@ -168,6 +179,17 @@ class api:
 
         json = jsond.loads(response)
 
+        if json["message"] == "invalidver":
+        if json["download"] != "":
+            print("New Version Available")
+            download_link = json["download"]
+            os.system(f"start {download_link}")
+            time.sleep(3)
+            os._exit(1)
+        else:
+            print("Invalid Version, Contact owner to add download link to latest app version")
+            time.sleep(3)
+            os._exit(1)
         if json["success"]:
             self.__load_user_data(json["info"])
             print(json["message"])
@@ -197,6 +219,17 @@ class api:
 
         json = jsond.loads(response)
 
+        if json["message"] == "invalidver":
+        if json["download"] != "":
+            print("New Version Available")
+            download_link = json["download"]
+            os.system(f"start {download_link}")
+            time.sleep(3)
+            os._exit(1)
+        else:
+            print("Invalid Version, Contact owner to add download link to latest app version")
+            time.sleep(3)
+            os._exit(1)
         if json["success"]:
             self.__load_user_data(json["info"])
             print(json["message"])

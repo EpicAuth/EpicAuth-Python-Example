@@ -129,6 +129,15 @@ class api:
         response = encryption.decrypt(response, self.enckey, init_iv)
         json = jsond.loads(response)
 
+        if json["message"] == "invalidver":
+            if json["download"] != "":
+                print("New Version Available")
+                download_link = json["download"]
+                os.system(f"start {download_link}")
+                os._exit(1)
+            else:
+                print("Invalid Version, Contact owner to add download link to latest app version")
+                os._exit(1)
         if json["success"]:
             print("successfully registered")
             self.__load_user_data(json["info"])
@@ -189,6 +198,15 @@ class api:
 
         json = jsond.loads(response)
 
+        if json["message"] == "invalidver":
+            if json["download"] != "":
+                print("New Version Available")
+                download_link = json["download"]
+                os.system(f"start {download_link}")
+                os._exit(1)
+            else:
+                print("Invalid Version, Contact owner to add download link to latest app version")
+                os._exit(1)
         if json["success"]:
             self.__load_user_data(json["info"])
             print("successfully logged in")
@@ -217,7 +235,16 @@ class api:
         response = encryption.decrypt(response, self.enckey, init_iv)
 
         json = jsond.loads(response)
-
+        
+        if json["message"] == "invalidver":
+            if json["download"] != "":
+                print("New Version Available")
+                download_link = json["download"]
+                os.system(f"start {download_link}")
+                os._exit(1)
+            else:
+                print("Invalid Version, Contact owner to add download link to latest app version")
+                os._exit(1)
         if json["success"]:
             self.__load_user_data(json["info"])
             print("successfully logged into license")
